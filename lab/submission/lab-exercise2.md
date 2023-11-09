@@ -11,7 +11,7 @@
     <td>1</td>
     <td>Agent_P</td>
     <td></td>
-    <th><a href="submissions/lab2/Agent P/" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="lab/submission/submissions/lab2/Agent_P/" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
   <tr>
     <td>2</td>

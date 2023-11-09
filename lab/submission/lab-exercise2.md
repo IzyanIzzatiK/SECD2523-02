@@ -36,4 +36,11 @@
     <td>Rotten Banana</td>
     <td></td>
     <th><a href="submissions/lab2" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
+    <tr>
+    <td>6</td>
+    <td>404 error</td>
+    <td></td>
+    <th><a href="submissions/lab2" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
 </table>

@@ -43,4 +43,10 @@
     <td></td>
     <th><a href="submissions/lab2/404 error" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
+  <tr>
+    <td>7</td>
+    <td>Teh O Limau Ais</td>
+    <td></td>
+    <th><a href="submissions/lab2/Teh O Limau Ais" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
 </table>

@@ -19,9 +19,15 @@
     <td></td>
     <th><a href="submissions/lab2" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
-  <tr>
+   <tr>
     <td>3</td>
     <td>Power Ranger</td>
+    <td></td>
+    <th><a href="submissions/lab2" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>NDE</td>
     <td></td>
     <th><a href="submissions/lab2" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>

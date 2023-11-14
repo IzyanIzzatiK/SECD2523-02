@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td>1</td>
-    <td>Agent_P</td>
+    <td>AgentP</td>
     <td></td>
     <th><a href="submissions/lab2/AgentP" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>

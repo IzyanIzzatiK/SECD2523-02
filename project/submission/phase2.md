@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td>1</td>
-    <td>Hello World</td>
+    <td>Agent P</td>
     <td></td>
     <th><a href="../phase%202/submission" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
   </tr>

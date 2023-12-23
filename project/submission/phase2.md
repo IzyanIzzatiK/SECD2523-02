@@ -11,7 +11,7 @@
     <td>1</td>
     <td>Agent P</td>
     <td></td>
-    <th><a href="../phase%202/submission/AgentP" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="/phase 2/submission/Agent P" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
   </tr>
   <tr>
     <td>2</td>

@@ -37,4 +37,8 @@
     <td></td>
     <th><a href="submissions/lab4"><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
+  <td>Rotten Banana</td>
+    <td></td>
+    <th><a href="submissions/lab3/Rotten Banana"><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
 </table>

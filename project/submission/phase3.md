@@ -29,6 +29,6 @@
   <td>4</td>
     <td>Rotten Banana</td>
     <td></td>
-    <th><a href="../phase%203/submission/ Rotten Banana" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="../phase%203/submission/Rotten Banana" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
   </tr>
 </table>

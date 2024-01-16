@@ -25,7 +25,11 @@
     <td></td>
     <th><a href="../phase%203/submission" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
   </tr>
-</table>
+<td>3</td>
+    <td>Power Ranger</td>
+    <td></td>
+    <th><a href="../phase%203/submission" ><img src="../images/folder.png" width="24px" height="24px"></a></th>
+  </tr>
 <td>4</td>
     <td>Rotten Banana</td>
     <td></td>

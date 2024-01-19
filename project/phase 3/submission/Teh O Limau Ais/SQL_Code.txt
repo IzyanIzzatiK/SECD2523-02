@@ -1,0 +1,419 @@
+/*DDL*/
+CREATE TABLE Product(
+productID VARCHAR2(10) PRIMARY KEY,
+price NUMBER(5,2) NOT NULL,
+productName VARCHAR2(15) NOT NULL
+);
+
+CREATE TABLE AccessR (
+accessID VARCHAR2(10) PRIMARY KEY,
+accessName VARCHAR2(30) NOT NULL
+);
+
+CREATE TABLE Template(
+accessID VARCHAR2(10) PRIMARY KEY,
+CONSTRAINT fk_access_template FOREIGN KEY (accessID) REFERENCES AccessR(accessID)
+);
+
+CREATE TABLE Basic (
+accessID VARCHAR2(10) PRIMARY KEY,
+writingCVB VARCHAR2(30) NOT NULL,
+actionVerb VARCHAR2(20) NOT NULL,
+durationB NUMBER(2) NOT NULL,
+CONSTRAINT fk_access_basic FOREIGN KEY (accessID) REFERENCES AccessR(accessID)
+);
+
+CREATE TABLE Pro (
+accessID VARCHAR2(10) PRIMARY KEY,
+writingCVP VARCHAR2(30) NOT NULL,
+accessLibrary VARCHAR2(10) NOT NULL,
+durationP NUMBER(2) NOT NULL,
+CONSTRAINT fk_access_pro FOREIGN KEY (accessID) REFERENCES AccessR(accessID)
+);
+
+CREATE TABLE Webinar (
+accessID VARCHAR2(10) PRIMARY KEY,
+modules VARCHAR2(20) NOT NULL,
+certificate VARCHAR2(20) NOT NULL,
+accessMemberArea VARCHAR2(20) NOT NULL,
+CONSTRAINT fk_access_webinar FOREIGN KEY (accessID) REFERENCES AccessR(accessID)
+);
+
+CREATE TABLE Users(
+username VARCHAR2(10) PRIMARY KEY,
+password VARCHAR2(30) NOT NULL,
+firstName VARCHAR2(15) NOT NULL,
+lastName VARCHAR2(15) NOT NULL,
+phoneNum VARCHAR2(20) NOT NULL
+);
+
+CREATE TABLE Chatbot (
+chatbotID VARCHAR2(10) PRIMARY KEY,
+keyword VARCHAR2(30) NOT NULL,
+answer VARCHAR2(200) NOT NULL
+);
+
+
+CREATE TABLE Orders (
+orderID VARCHAR2(10) PRIMARY KEY,
+username VARCHAR2(10) NOT NULL,
+ordersDate DATE NOT NULL,
+ordersTime TIMESTAMP NOT NULL,
+CONSTRAINT fk_order_username FOREIGN KEY (username) REFERENCES Users(username)
+);
+
+
+CREATE TABLE Payment (
+transactionID VARCHAR2(10) PRIMARY KEY,
+paymentDate DATE NOT NULL,
+paymentTime TIMESTAMP NOT NULL,
+paymentMethod VARCHAR2(20) NOT NULL,
+username VARCHAR2(10) NOT NULL,
+orderID VARCHAR2(10) NOT NULL,
+CONSTRAINT fk_pay_username FOREIGN KEY (username) REFERENCES Users(username),
+CONSTRAINT fk_pay_order FOREIGN KEY (orderID) REFERENCES Orders(orderID)
+
+);
+
+CREATE TABLE Resume (
+resumeID VARCHAR2(10) PRIMARY KEY,
+firstNameR VARCHAR2(15) NOT NULL,
+lastNameR VARCHAR2(15) NOT NULL,
+selfDescription VARCHAR2(100) NOT NULL,
+phoneNumR VARCHAR2(20) NOT NULL,
+email VARCHAR2(30) NOT NULL,
+street VARCHAR2(15) NOT NULL,
+city VARCHAR2(15) NOT NULL,
+postcode VARCHAR2(15) NOT NULL,
+website VARCHAR2(30) NOT NULL,
+educationType VARCHAR2(30) NOT NULL,
+educationName VARCHAR2(30) NOT NULL,
+educationResult VARCHAR2(30) NOT NULL,
+skill1 VARCHAR2(30) NOT NULL,
+skill2 VARCHAR2(30),
+skill3 VARCHAR2(30),
+experience1Name VARCHAR2(30) NOT NULL,
+experience1Year NUMBER(4) NOT NULL,
+experience1Description VARCHAR2(30) NOT NULL,
+experience2Name VARCHAR2(30),
+experience2Year NUMBER(4),
+experience2Description VARCHAR2(30),
+username VARCHAR2(10) NOT NULL,
+CONSTRAINT fk_res_username FOREIGN KEY (username) REFERENCES Users(username)
+);
+
+CREATE TABLE Asking (
+username VARCHAR2(10) NOT NULL,
+chatbotID VARCHAR2(10) NOT NULL,
+askingDate DATE NOT NULL,
+askingTime TIMESTAMP NOT NULL,
+CONSTRAINT pk_asking PRIMARY KEY (username, chatbotID),
+CONSTRAINT fk_ask_username FOREIGN KEY (username) REFERENCES Users(username),
+CONSTRAINT fk_ask_chatbot FOREIGN KEY (chatbotID) REFERENCES Chatbot(chatbotID)
+);
+
+CREATE TABLE EmailTemplate (
+EmailTemplateID VARCHAR2(10) PRIMARY KEY,
+accessID VARCHAR2(10) NOT NULL,
+CONSTRAINT fk_temp_access FOREIGN KEY (accessID) REFERENCES Template(accessID)
+);
+
+CREATE TABLE EmailPPT (
+EmailPPTID VARCHAR2(10) PRIMARY KEY,
+accessID VARCHAR2(10) NOT NULL,
+CONSTRAINT fk_ppt_access FOREIGN KEY (accessID) REFERENCES Template(accessID)
+);
+
+CREATE TABLE EmailCanva (
+emailCanvaID VARCHAR2(10) PRIMARY KEY,
+accessID VARCHAR2(10) NOT NULL,
+CONSTRAINT fk_canva_access FOREIGN KEY (accessID) REFERENCES Template(accessID)
+);
+
+CREATE TABLE Purchasing (
+username VARCHAR2(10) NOT NULL,
+productID VARCHAR2(10) NOT NULL,
+CONSTRAINT pk_purchasing PRIMARY KEY (username, productID),
+CONSTRAINT fk_pur_username FOREIGN KEY (username) REFERENCES Users(username),
+CONSTRAINT fk_pur_product FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Requesting (
+productID VARCHAR2(10) NOT NULL,
+accessID VARCHAR2(10) NOT NULL,
+CONSTRAINT pk_requesting PRIMARY KEY (productID, accessID),
+CONSTRAINT fk_req_product FOREIGN KEY (productID) REFERENCES Product(productID),
+CONSTRAINT fk_req_access FOREIGN KEY (accessID) REFERENCES AccessR(accessID)
+);
+
+/*DML*/
+/* Insert data into Product table */
+INSERT INTO Product (productID, productName, price)
+VALUES('PR001', 'CV Templates', 99);
+
+INSERT INTO Product (productID, productName, price)
+VALUES('PR002', 'CVWriting Basic', 159);
+
+INSERT INTO Product (productID, productName, price)
+VALUES('PR003', 'CVWriting Pro', 199);
+
+INSERT INTO Product (productID, productName, price)
+VALUES('PR004', 'Webinar', 250);
+
+/* Insert data into AccessR table*/
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES('AC001','EmailTemplate');
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES ('AC002', 'EmailPPT');
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES ('AC003', 'EmailCanva');
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES ('AC004', 'Basic Access');
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES ('AC005', 'Pro Access');
+
+INSERT INTO AccessR (AccessID, AccessName)
+VALUES ('AC006', 'Webinar Access');
+
+/* Insert data into Template table */
+INSERT INTO Template (accessID)
+VALUES('AC001');
+
+INSERT INTO Template (accessID)
+VALUES('AC002');
+
+INSERT INTO Template (accessID)
+VALUES('AC003');
+
+/* Insert data into Basic table */
+INSERT INTO Basic (accessID, writingCVB, actionVerb, durationB)
+VALUES('AC004', 'TRUE', 'TRUE', 10);
+
+/* Insert data into Pro table */
+INSERT INTO Pro (accessID, writingCVP, accessLibrary, durationP)
+VALUES('AC005', 'TRUE', 'TRUE', 4);
+
+/* Insert data into Webinar table */
+INSERT INTO Webinar (accessID, modules, certificate, accessMemberArea)
+VALUES('AC006', 'TRUE', 'TRUE', 'TRUE');
+
+/* Insert data into User table */
+INSERT INTO Users (username, password, firstName, lastName, phoneNum)
+VALUES('sini.lim', '123456', 'SI NI', 'LIM', '1234567890');
+
+INSERT INTO Users (username, password, firstName, lastName, phoneNum)
+VALUES('k.xuen', '223456', 'KAI XUEN', 'ONG', '2234567890');
+
+INSERT INTO Users (username, password, firstName, lastName, phoneNum)
+VALUES('chan.yee', '323456', 'QING YEE', 'CHAN', '3234567890');
+
+INSERT INTO Users (username, password, firstName, lastName, phoneNum)
+VALUES('ooi.sian', '423456', 'WEI SIAN', 'OOI', '4234567890');
+
+/* Insert data into Orders table */
+
+INSERT INTO Orders (orderID, username, ordersDate, ordersTime)
+VALUES('OR001', 'sini.lim', TO_DATE('23-FEB-2024', 'DD-MON-YYYY'), TO_DATE('12:34', 'HH24:MI'));
+
+INSERT INTO Orders (orderID, username, ordersDate, ordersTime)
+VALUES('OR002', 'k.xuen', TO_DATE('25-FEB-2024', 'DD-MON-YYYY'), TO_DATE('13:11', 'HH24:MI'));
+
+INSERT INTO Orders (orderID, username, ordersDate, ordersTime)
+VALUES('OR003', 'chan.yee', TO_DATE('15-MAR-2024', 'DD-MON-YYYY'), TO_DATE('23:11', 'HH24:MI'));
+
+INSERT INTO Orders (orderID, username, ordersDate, ordersTime)
+VALUES('OR004', 'ooi.sian', TO_DATE('01-MAR-2024', 'DD-MON-YYYY'), TO_DATE('09:00', 'HH24:MI'));
+
+/* Insert data into Payment table */
+
+INSERT INTO Payment (transactionID, paymentDate, paymentTime, paymentMethod, username, orderID)
+VALUES('TR001', TO_DATE('23-FEB-2024', 'DD-MON-YYYY'), TO_DATE('12:45', 'HH24:MI'), 'FPX', 'sini.lim', 'OR001');
+
+INSERT INTO Payment (transactionID, paymentDate, paymentTime, paymentMethod, username, orderID)
+VALUES('TR002', TO_DATE('25-FEB-2024', 'DD-MON-YYYY'), TO_DATE('13:22', 'HH24:MI'), 'FPX', 'k.xuen', 'OR002');
+
+INSERT INTO Payment (transactionID, paymentDate, paymentTime, paymentMethod, username, orderID)
+VALUES('TR003', TO_DATE('15-MAR-2024', 'DD-MON-YYYY'), TO_DATE('23:12', 'HH24:MI'), 'Debit Card', 'chan.yee', 'OR003');
+
+INSERT INTO Payment (transactionID, paymentDate, paymentTime, paymentMethod, username, orderID)
+VALUES('TR004', TO_DATE('01-MAR-2024', 'DD-MON-YYYY'), TO_DATE('09:03', 'HH24:MI'), 'FPX', 'ooi.sian', 'OR004');
+
+/* Insert data into Resume table */
+INSERT INTO Resume (resumeID, firstNameR, lastNameR, selfDescription, phoneNumR, email, street, city, postcode, website, educationType, educationName, educationResult, skill1, experience1Name, experience1Year, experience1Description, username)
+VALUES('RE001', 'SI NI', 'LIM', 'Year 2 student', '1234567890', 'sini@gmail.com', 'Jalan emas', 'Skudai', '81400', 'www.lsn.com', 'high education', 'UTM', '4', 'eat sleep drink UTM', 'UTM exp1', '2022', 'exp desc1', 'sini.lim');
+
+/* Insert data into EmailTemplate table */
+INSERT INTO EmailTemplate (EmailTemplateID, accessID)
+VALUES('ET001', 'AC001');
+
+INSERT INTO EmailTemplate (EmailTemplateID, accessID)
+VALUES('ET002', 'AC001');
+
+/* Insert data into EmailPPT table */
+INSERT INTO EmailPPT (EmailPPTID, accessID)
+VALUES('EP001', 'AC002');
+
+INSERT INTO EmailPPT (EmailPPTID, accessID)
+VALUES('EP002', 'AC002');
+
+INSERT INTO EmailPPT (EmailPPTID, accessID)
+VALUES('EP003', 'AC002');
+
+/* Insert data into EmailCanva table */
+INSERT INTO EmailCanva (emailCanvaID, accessID)
+VALUES('EC001', 'AC003');
+
+INSERT INTO EmailCanva (emailCanvaID, accessID)
+VALUES('EC002', 'AC003');
+
+INSERT INTO EmailCanva (emailCanvaID, accessID)
+VALUES('EC003', 'AC003');
+
+/* Insert data into Purchasing table */
+INSERT INTO Purchasing (username, productID)
+VALUES('sini.lim', 'PR001');
+
+INSERT INTO Purchasing (username, productID)
+VALUES('k.xuen', 'PR002');
+
+INSERT INTO Purchasing (username, productID)
+VALUES('chan.yee', 'PR003');
+
+INSERT INTO Purchasing (username, productID)
+VALUES('ooi.sian', 'PR004');
+
+/* Insert data into Requesting table */
+INSERT INTO Requesting (productID, accessID)
+
+VALUES('PR001', 'AC001');
+
+INSERT INTO Requesting (productID, accessID)
+VALUES('PR001', 'AC002');
+
+INSERT INTO Requesting (productID, accessID)
+VALUES('PR001', 'AC003');
+
+INSERT INTO Requesting (productID, accessID)
+VALUES('PR002', 'AC004');
+
+INSERT INTO Requesting (productID, accessID)
+VALUES('PR003', 'AC005');
+
+INSERT INTO Requesting (productID, accessID)
+VALUES('PR004', 'AC006');
+
+/* Insert data into Chatbot table */
+
+INSERT INTO Chatbot (chatbotID, keyword, answer)
+VALUES('CB001', 'product price', '1. CV templates - RM99.00, 2. CV Writing Basic - RM159.00, 3. CV Writing Pro - RM199.00, 4. Webinar - RM250.00');
+
+INSERT INTO Chatbot (chatbotID, keyword, answer)
+VALUES('CB002', 'access expire', 'will no expire');
+
+INSERT INTO Chatbot (chatbotID, keyword, answer)
+VALUES('CB003', 'product discount', 'coming soon');
+
+/* Insert data into Asking table */
+
+INSERT INTO Asking (username, chatbotID, askingDate, askingTime)
+VALUES('sini.lim', 'CB001', TO_DATE('22-NOV-2023', 'DD-MON-YYYY'), TO_DATE('13:23', 'HH24:MI'));
+
+INSERT INTO Asking (username, chatbotID, askingDate, askingTime)
+VALUES('k.xuen', 'CB002', TO_DATE('24-DEC-2023', 'DD-MON-YYYY'), TO_DATE('11:09', 'HH24:MI'));
+
+INSERT INTO Asking (username, chatbotID, askingDate, askingTime)
+VALUES('chan.yee', 'CB003', TO_DATE('26-DEC-2023', 'DD-MON-YYYY'), TO_DATE('23:22', 'HH24:MI'));
+
+INSERT INTO Asking (username, chatbotID, askingDate, askingTime)
+VALUES('ooi.sian', 'CB003', TO_DATE('02-MAR-2024', 'DD-MON-YYYY'), TO_DATE('10:23', 'HH24:MI'));
+
+-- Display all records from each table
+
+SELECT * FROM Product;
+SELECT * FROM AccessR;
+SELECT * FROM Template;
+SELECT * FROM Basic;
+SELECT * FROM Pro;
+SELECT * FROM Webinar;
+SELECT * FROM Users;
+SELECT * FROM Chatbot;
+SELECT * FROM Orders;
+SELECT * FROM Payment;
+SELECT * FROM Resume;
+SELECT * FROM Asking;
+SELECT * FROM EmailTemplate;
+SELECT * FROM EmailPPT;
+SELECT * FROM EmailCanva;
+SELECT * FROM Purchasing;
+SELECT * FROM Requesting;
+
+-- Number of tables: 17
+
+/*Purchasing Interface*/
+SELECT u.lastName || ' ' || u.firstName "CUSTOMER NAME", o.ordersDate "ORDER DATE", o.orderID, pay.transactionID, pay.paymentMethod "PAYMENT METHOD", prod.productID, prod.productName "PRODUCT NAME", prod.price
+FROM Users u JOIN Orders o
+ON u.username = o.username
+JOIN Payment pay
+ON o.orderID = pay.orderID
+JOIN Purchasing pur
+ON pur.username = u.username
+JOIN Product prod
+ON prod.productID = pur.productID
+ORDER BY u.username;
+
+/*Product Introduce Interface*/
+SELECT prod.productID, prod.productName "PRODUCT NAME", prod.price, acc.accessID, acc.accessName "ACCESS NAME"
+FROM Product prod JOIN Requesting req
+ON prod.productID = req.productID
+JOIN AccessR acc
+ON acc.accessID = req.accessID;
+
+/*Describe Product Access*/
+SELECT acc.accessID, acc.accessName, eT.emailTemplateID, eP.emailPPTID, eC.emailCanvaID
+FROM AccessR acc LEFT OUTER JOIN EmailTemplate eT
+ON eT.accessID = acc.accessID
+LEFT OUTER JOIN EmailPPT eP
+ON eP.accessID = acc.accessID
+LEFT OUTER JOIN EmailCanva eC
+ON eC.accessID = acc.accessID
+ORDER BY acc.accessID;
+
+/*Sending Enquiries Interface*/
+SELECT ask.askingDate "ASKING DATE", u.username, u.lastName || ' ' || u.firstName "USER REAL NAME", c.chatbotID, c.keyword "QUESTION", c.answer
+FROM Users u JOIN Asking ask
+ON u.username = ask.username
+JOIN Chatbot c
+ON c.chatbotID = ask.chatbotID
+ORDER BY ask.askingDate DESC;
+
+/*Select user that ask for question chatbotID = 3*/
+SELECT a.chatbotID, a.username, a.askingDate "ASKING TIME", c.keyword, c.answer
+FROM Asking a JOIN Chatbot c
+ON a.chatbotID = c.chatbotID
+WHERE a.chatbotID = 'CB003';
+
+/*Increase the price of product by multiplying 1.2*/
+UPDATE Product
+SET price = price*1.2;
+
+SELECT * FROM Product;
+
+/*Select user with the last name that start with 'O'*/
+SELECT lastName || ' ' || firstName AS NAME, username, phoneNum "PHONE NUMBER", password
+FROM Users
+WHERE lastName LIKE 'O%' AND phoneNum = '2234567890';
+
+/*Select Product with the price between 100 until 200 */
+SELECT *
+FROM Product
+WHERE price BETWEEN 100 AND 200;
+
+/*Allow user search the product details based on productID*/
+SELECT *
+FROM Product
+WHERE productID = :prodID;

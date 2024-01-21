@@ -1,0 +1,852 @@
+--Consultant
+
+--Table to store Consultant Username & Password
+CREATE TABLE ConsultantUser (
+    Consult_username VARCHAR(50),
+    Consult_Password VARCHAR(20),
+    CONSTRAINT consultantuser_pk PRIMARY KEY (Consult_username)
+);
+
+--Insert values into table ConsultantUser
+INSERT INTO ConsultantUser (Consult_username, Consult_Password) VALUES ('johnsmith123', 'smithpass');
+INSERT INTO ConsultantUser (Consult_username, Consult_Password) VALUES ('maryjones456', 'jonespass');
+INSERT INTO ConsultantUser (Consult_username, Consult_Password) VALUES ('robertbrown789', 'brownpass');
+INSERT INTO ConsultantUser (Consult_username, Consult_Password) VALUES ('emilywhite234', 'whitepass');
+INSERT INTO ConsultantUser (Consult_username, Consult_Password) VALUES ('davidlee567', 'leepass');
+
+--Table to store Consultant ID , Name , Address , Qualification & Availability
+CREATE TABLE ConsultantID (
+    Consult_ID VARCHAR(20),
+    Consult_Name VARCHAR(50),
+    Address VARCHAR(50),
+    Qualification VARCHAR(50),
+    Availability DATE,
+    CONSTRAINT consultantid_pk PRIMARY KEY (Consult_ID)
+);
+
+--Insert values into table ConsultantID
+INSERT INTO ConsultantID (Consult_ID, Consult_Name, Address, Qualification, Availability)
+VALUES ('K1', 'John Smith', '123 Main St', 'MBA', TO_DATE('2023-05-15', 'YYYY-MM-DD'));
+
+INSERT INTO ConsultantID (Consult_ID, Consult_Name, Address, Qualification, Availability)
+VALUES ('K2', 'Mary Jones', '456 Oak Ave', 'PhD', TO_DATE('2023-08-22', 'YYYY-MM-DD'));
+
+INSERT INTO ConsultantID (Consult_ID, Consult_Name, Address, Qualification, Availability)
+VALUES ('K3', 'Robert Brown', '789 Maple Ln', 'BSc', TO_DATE('2023-04-10', 'YYYY-MM-DD'));
+
+INSERT INTO ConsultantID (Consult_ID, Consult_Name, Address, Qualification, Availability)
+VALUES ('K4', 'Emily White', '234 Pine Rd', 'MS', TO_DATE('2023-11-30', 'YYYY-MM-DD'));
+
+INSERT INTO ConsultantID (Consult_ID, Consult_Name, Address, Qualification, Availability)
+VALUES ('K5', 'David Lee', '567 Elm Blvd', 'MBA', TO_DATE('2023-06-18', 'YYYY-MM-DD'));
+
+--Table to store Consultant Email & Username
+CREATE TABLE ConsultantEmail (
+    Consult_Email VARCHAR(50),
+    Consult_username VARCHAR(50),
+    CONSTRAINT consultantemail_pk PRIMARY KEY (Consult_Email),
+    CONSTRAINT consultantemail_fk FOREIGN KEY (Consult_username) REFERENCES ConsultantUser (Consult_username)
+);
+
+--Insert values into table ConsultantEmail
+INSERT INTO ConsultantEmail (Consult_Email, Consult_username) VALUES ('john.smith@example.com', 'johnsmith123');
+INSERT INTO ConsultantEmail (Consult_Email, Consult_username) VALUES ('mary.jones@example.com', 'maryjones456');
+INSERT INTO ConsultantEmail (Consult_Email, Consult_username) VALUES ('robert.brown@example.com', 'robertbrown789');
+INSERT INTO ConsultantEmail (Consult_Email, Consult_username) VALUES ('emily.white@example.com', 'emilywhite234');
+INSERT INTO ConsultantEmail (Consult_Email, Consult_username) VALUES ('david.lee@example.com', 'davidlee567');
+
+--Table to store Consultant ID & Email
+CREATE TABLE StaffConsult (
+    Consult_ID VARCHAR(20),
+    Consult_Email VARCHAR(50),
+    CONSTRAINT staffconsult_pk PRIMARY KEY (Consult_ID, Consult_Email),
+    CONSTRAINT staffconsult2_fk FOREIGN KEY (Consult_ID) REFERENCES ConsultantID(Consult_ID),
+    CONSTRAINT staffconsult3_fk FOREIGN KEY (Consult_Email) REFERENCES ConsultantEmail(Consult_Email)
+);
+
+--Insert values into table StaffConsultant
+INSERT INTO StaffConsult (Consult_ID, Consult_Email)
+VALUES ('K1', 'john.smith@example.com');
+
+INSERT INTO StaffConsult (Consult_ID, Consult_Email)
+VALUES ('K2', 'mary.jones@example.com');
+
+INSERT INTO StaffConsult (Consult_ID, Consult_Email)
+VALUES ('K3', 'robert.brown@example.com');
+
+INSERT INTO StaffConsult (Consult_ID, Consult_Email)
+VALUES ('K4', 'emily.white@example.com');
+
+INSERT INTO StaffConsult (Consult_ID, Consult_Email)
+VALUES ('K5', 'david.lee@example.com');
+
+--Display Customer Name , Customer Education , Consultant Name , Consultant's availability 
+SELECT cz.Cust_Name AS "Customer Name" , cz.Education AS "Education" , co.Consult_Name AS "Consultant Name", co.Availability AS "Consultant Availability"
+FROM ConsultantID co
+JOIN CID cz ON (co.Consult_ID = cz.StaffID);
+
+-- Company
+
+--Table to store Company Username & Password
+create table CoUser(
+Comp_username varchar2(50),
+Comp_password varchar2 (50),
+CONSTRAINT comp_username_pk PRIMARY KEY (Comp_username)
+);
+
+--Insert values into table CoUser
+INSERT INTO CoUser VALUES ('Tech Innovators Inc', 'pass123');
+INSERT INTO CoUser VALUES ('Data Masters Ltd', 'secureTech456');
+INSERT INTO CoUser VALUES ('Cloud Tech Solutions', 'alphaPass789');
+INSERT INTO CoUser VALUES ('Innova Systems LLC', 'gtco2022');
+INSERT INTO CoUser VALUES ('Rapid Systems Co', 'webPass123');
+
+--Table to store Company Email , Username
+create table CoEmail(
+Comp_Email varchar2(50),
+Comp_username varchar2(50),
+CONSTRAINT Comp_Email_pk PRIMARY KEY(Comp_Email),
+CONSTRAINT Comp_Email_fk FOREIGN KEY (Comp_username) REFERENCES CoUser(Comp_username)
+);
+
+--Insert values into table CoEmail
+INSERT INTO CoEmail VALUES ('techinnovators@example.com', 'Tech Innovators Inc');
+INSERT INTO CoEmail VALUES ('datamasters@example.com', 'Data Masters Ltd');
+INSERT INTO CoEmail VALUES ('cloudtech@example.com', 'Cloud Tech Solutions');
+INSERT INTO CoEmail VALUES ('innova@example.com', 'Innova Systems LLC');
+INSERT INTO CoEmail VALUES ('rapidsystems@example.com', 'Rapid Systems Co');
+
+--Table to store Company ID , Name , Email & Address
+create table CoID(
+Comp_ID varchar2 (5),
+Comp_Name varchar2 (50),
+Comp_Email varchar2 (50),
+Address varchar2 (150),
+CONSTRAINT Comp_ID_pk PRIMARY KEY(Comp_ID),
+CONSTRAINT comid_fk FOREIGN KEY(Comp_Email) REFERENCES CoEmail(Comp_Email)
+);
+
+--Insert values into table CoID
+INSERT INTO CoID VALUES ('C0001', 'Tech Innovators Inc', 'techinnovators@example.com', '123 Tech Street, Tech City');
+INSERT INTO CoID VALUES ('C0002', 'Data Masters Ltd', 'datamasters@example.com', '456 Data Avenue, Data City');
+INSERT INTO CoID VALUES ('C0003', 'Cloud Tech Solutions', 'cloudtech@example.com', '789 Cloud Lane, Cloud City');
+INSERT INTO CoID VALUES ('C0004', 'Innova Systems LLC', 'innova@example.com', '101 Innovate Road, Innovate City');
+INSERT INTO CoID VALUES ('C0005', 'Rapid Systems Co', 'rapidsystems@example.com', '202 Rapid Street, Rapid City');
+
+--Table to store Compant ID & Email
+create table Company(
+Comp_ID varchar2 (5),
+Comp_Email varchar2 (50),
+CONSTRAINT Company_pk PRIMARY KEY ( Comp_ID,Comp_Email ),
+CONSTRAINT compId_fk FOREIGN KEY(Comp_ID) REFERENCES CoID(Comp_ID),
+CONSTRAINT compemail_fk FOREIGN KEY(Comp_Email) REFERENCES CoEmail(Comp_Email)
+);
+
+--Insert values into table Company
+INSERT INTO Company VALUES ('C0001', 'techinnovators@example.com');
+INSERT INTO Company VALUES ('C0002', 'datamasters@example.com');
+INSERT INTO Company VALUES ('C0003', 'cloudtech@example.com');
+INSERT INTO Company VALUES ('C0004', 'innova@example.com');
+INSERT INTO Company VALUES ('C0005', 'rapidsystems@example.com');
+
+--Table to store Company ID & Job offer by the company
+Create table JobVacancy(
+	Job_Vacancy varchar(50),
+	Comp_ID varchar(5),
+	
+	CONSTRAINT job_pk PRIMARY KEY (Job_Vacancy),
+	CONSTRAINT job_fk FOREIGN KEY (Comp_ID) REFERENCES CoID (Comp_ID)
+);
+
+--Insert values into table JobVacancy
+INSERT INTO JobVacancy(Job_Vacancy,Comp_ID)
+VALUES ('Software Developer', 'C0001');
+
+INSERT INTO JobVacancy(Job_Vacancy,Comp_ID)
+VALUES ('Marketing Specialist', 'C0002');
+
+
+INSERT INTO JobVacancy(Job_Vacancy,Comp_ID)
+VALUES ('Financial Analyst', 'C0003');
+
+
+INSERT INTO JobVacancy(Job_Vacancy,Comp_ID)
+VALUES ('Customer Service Representative', 'C0004');
+
+
+INSERT INTO JobVacancy(Job_Vacancy,Comp_ID)
+VALUES ('Graphic Designer', 'C0005');
+
+--Table to store Company phone number & ID
+Create table Comp_Contact(
+	Comp_Contact_Num varchar(50),
+	Comp_ID varchar(5),
+	
+	CONSTRAINT compcontact_pk PRIMARY KEY (Comp_Contact_Num),
+	CONSTRAINT compcontact_fk FOREIGN KEY (Comp_ID) REFERENCES CoID (Comp_ID)
+);
+
+--Insert values into table Comp_Contact
+INSERT INTO Comp_Contact(Comp_Contact_Num, Comp_ID)
+VALUES ('012 456 7890','C0001');
+
+INSERT INTO Comp_Contact(Comp_Contact_Num, Comp_ID)
+VALUES ('011 233 4455','C0002');
+
+
+INSERT INTO Comp_Contact(Comp_Contact_Num, Comp_ID)
+VALUES ('017 876 5432','C0003');
+
+INSERT INTO Comp_Contact(Comp_Contact_Num, Comp_ID)
+VALUES ('014 578 9012','C0004');
+
+INSERT INTO Comp_Contact(Comp_Contact_Num, Comp_ID)
+VALUES ('013 875 4321','C0005');
+
+--Display Company details
+SELECT ca.Comp_Name AS "Company Name" , ca.Comp_Email AS "Email" , cb.Comp_Contact_NUM AS "Contact Number" , ca.Address AS "Address"
+FROM CoID ca
+JOIN Comp_Contact cb ON (ca.Comp_ID = cb.Comp_ID);
+
+-- Proofreader
+
+--Table to store Proofreader username & password
+create table ProofUser(
+    Staff_Username varchar (50),
+    Staff_Password varchar (50),
+    
+    CONSTRAINT proofuser_pk PRIMARY KEY (Staff_UserName)
+);
+
+--Insert values into table ProoUser
+INSERT INTO ProofUser (Staff_Username,Staff_Password)
+Values ('alexsmith123', 'password123');
+
+INSERT INTO ProofUser (Staff_Username,Staff_Password)
+Values ('sophiejones456', 'securepassword');
+
+INSERT INTO ProofUser (Staff_Username,Staff_Password)
+Values ('michaelbrown789', 'brownpass');
+
+INSERT INTO ProofUser (Staff_Username,Staff_Password)
+Values ('oliviawilson321', 'wilsonpass');
+
+INSERT INTO ProofUser (Staff_Username,Staff_Password)
+Values ('ryantaylor555', 'taylor123');
+
+--Table to store Proofreader ID , Name , Address
+create table ProofID(
+    Staff_ID varchar (5),
+    Staff_Name varchar (50),
+    Staff_Address varchar (50),
+    Position varchar (50),
+    CONSTRAINT proofid_pk PRIMARY KEY (Staff_ID)
+);
+
+SELECT * FROM ProofID;
+
+--Insert Admin ID into the ProofID table
+UPDATE ProofID
+SET Adm_ID = 'X0001'
+WHERE Staff_ID = 'P0021';
+UPDATE ProofID
+SET Adm_ID = 'X0002'
+WHERE Staff_ID = 'P0022';
+UPDATE ProofID
+SET Adm_ID = 'X0002'
+WHERE Staff_ID = 'P0023';
+UPDATE ProofID
+SET Adm_ID = 'X0003'
+WHERE Staff_ID = 'P0024';
+UPDATE ProofID
+SET Adm_ID = 'X0004'
+WHERE Staff_ID = 'P0025';
+
+--Add another attribute (Admin ID) into ProofID table
+ALTER TABLE ProofID
+ADD Adm_ID VARCHAR2(5);
+
+--Insert --Insert values into table ProofID
+INSERT INTO ProofID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('P0021', 'Alex Smith', '123 Oak St', 'Manager');
+
+INSERT INTO ProofID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('P0022', 'Sophie Jones', '456 Elm Ave', 'Assistant');
+
+INSERT INTO ProofID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('P0023', 'Michael Brown', '789 Birch Ln', 'Clerk');
+
+INSERT INTO ProofID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('P0024', 'Olivia Wilson', '321 Cedar Rd', 'Supervisor');
+
+INSERT INTO ProofID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('P0025', 'Ryan Taylor', '555 Maple Dr', 'Analyst');
+
+----Table to store Proofreader Email & Password
+create table ProofEmail(
+    Staff_Email varchar (50),
+    Staff_Username varchar (50),
+    
+    CONSTRAINT proofemail_pk PRIMARY KEY (Staff_Email),
+    CONSTRAINT proofemail_fk FOREIGN KEY (Staff_Username) REFERENCES ProofUser (Staff_Username)
+
+);
+
+--Insert values into table ProofEmail
+INSERT INTO ProofEmail (Staff_Email,Staff_Username)
+Values ('alex.smith@example.com', 'alexsmith123');
+
+INSERT INTO ProofEmail (Staff_Email,Staff_Username)
+Values ('sophie.jones@example.com', 'sophiejones456');
+
+INSERT INTO ProofEmail (Staff_Email,Staff_Username)
+Values ('michael.brown@example.com', 'michaelbrown789');
+
+INSERT INTO ProofEmail (Staff_Email,Staff_Username)
+Values ('olivia.wilson@example.com', 'oliviawilson321');
+
+INSERT INTO ProofEmail (Staff_Email,Staff_Username)
+Values ('ryan.taylor@example.com', 'ryantaylor555');
+
+--Table to store Staff ID & Email
+create table StaffProof(
+    Staff_ID varchar (5),
+    Staff_Email varchar (50),
+    
+    CONSTRAINT proof_pk PRIMARY KEY (Staff_ID,Staff_Email),
+    CONSTRAINT proof1_fk FOREIGN KEY (Staff_ID) REFERENCES ProofID (Staff_ID),
+    CONSTRAINT proof2_fk FOREIGN KEY (Staff_Email) REFERENCES ProofEmail (Staff_Email)
+
+);
+
+--Insert values into table StaffProof
+INSERT INTO StaffProof (Staff_ID,Staff_Email)
+Values ('P0021', 'alex.smith@example.com');
+
+INSERT INTO StaffProof (Staff_ID,Staff_Email)
+Values ('P0022', 'sophie.jones@example.com');
+
+INSERT INTO StaffProof (Staff_ID,Staff_Email)
+Values ('P0023', 'michael.brown@example.com');
+
+INSERT INTO StaffProof (Staff_ID,Staff_Email)
+Values ('P0024', 'olivia.wilson@example.com');
+
+INSERT INTO StaffProof (Staff_ID,Staff_Email)
+Values ('P0025', 'ryan.taylor@example.com');
+
+--Display Proofreader ID , NAME , Email
+SELECT pe.Staff_ID AS "Proofreader ID" , pi.Staff_Name AS "Proffreader Name" , pe.Staff_email AS "Email"
+FROM StaffProof pe
+JOIN ProofID pi ON (pe.Staff_ID = pi.Staff_ID);
+
+
+SELECT * FROM AdminID;
+SELECT * FROM ProofID;
+
+--Display the admin assign proofreader function 
+SELECT a.Staff_Name AS "Admin" , b.Staff_Name AS "Proofreader"
+FROM AdminID a
+JOIN ProofID b ON (a.Staff_ID = b.Adm_ID);
+
+-- Customer
+
+----Table to store Customer Username & Password
+create table CUser(
+Cust_username varchar2(50),
+Cust_password varchar2 (50),
+CONSTRAINT cust_username_pk PRIMARY KEY (Cust_username)
+);
+
+----Insert values into table CUser
+INSERT INTO CUser VALUES ('user1', 'pass123');
+INSERT INTO CUser VALUES ('john_doe', 'securePW456');
+INSERT INTO CUser VALUES ('alice_smith', '12345pass');
+INSERT INTO CUser VALUES ('jdoe2022', 'testpass789');
+INSERT INTO CUser VALUES ('admin_user', 'adminPass123');
+
+----Table to store Customer Email , Username
+create table CEmail(
+Cust_Email varchar2(50),
+Cust_Username varchar2(50),
+CONSTRAINT Cust_Email_pk PRIMARY KEY(Cust_Email),
+CONSTRAINT Cust_Email_fk FOREIGN KEY (Cust_Username) REFERENCES CUser(Cust_Username)
+);
+
+--Insert values into table CEmail
+INSERT INTO CEmail VALUES ('user1@example.com', 'user1');
+INSERT INTO CEmail VALUES ('john.doe@email.com', 'john_doe');
+INSERT INTO CEmail VALUES ('alice.smith@email.com', 'alice_smith');
+INSERT INTO CEmail VALUES ('jdoe2022@email.com', 'jdoe2022');
+INSERT INTO CEmail VALUES ('admin.user@email.com', 'admin_user');
+
+--Table to store Customer ID , Name , Education , Company ID , Consultant ID
+create table CID(
+Cust_ID varchar2 (5),
+Cust_Name varchar2 (50),
+Education varchar2 (50),
+Comp_ID varchar2 (5),
+StaffID varchar2 (5),
+CONSTRAINT Cust_ID_pk PRIMARY KEY(Cust_ID),
+CONSTRAINT comp_fk FOREIGN KEY(Comp_ID) REFERENCES CoID(Comp_ID),
+CONSTRAINT Staff_id_fk FOREIGN KEY(StaffID) REFERENCES ConsultantID(Consult_ID)
+);
+
+--Insert values into table CID
+INSERT INTO CID VALUES ('Z0001', 'John Doe', 'Bachelor of Science', 'C0001', 'K1');
+INSERT INTO CID VALUES ('Z0002', 'Alice Smith', 'Master of Business Administration', 'C0002', 'K2');
+INSERT INTO CID VALUES ('Z0003', 'Bob Johnson', 'Bachelor of Arts', 'C0003', 'K3');
+INSERT INTO CID VALUES ('Z0004', 'Emily Davis', 'Doctor of Medicine', 'C0004', 'K4');
+INSERT INTO CID VALUES ('Z0005', 'Michael Wilson', 'Master of Science in Engineering', 'C0005', 'K5');
+INSERT INTO CID VALUES ('Z0006', 'Kuganes', 'Master of Science in Engineering', 'C0005', 'K5');
+
+--Display Company that hire Customer
+SELECT a.Cust_Name AS "Customer Name" , b.Comp_Name
+FROM CID a
+JOIN COID b ON(a.Comp_ID = b.Comp_ID)
+WHERE Comp_Name = 'Rapid Systems Co';
+
+--Table to store Customer ID & Email
+create table Customer(
+Cust_ID varchar2 (5),
+Cust_Email varchar2 (50),
+CONSTRAINT C_pk PRIMARY KEY ( Cust_ID,Cust_Email ),
+CONSTRAINT cufk FOREIGN KEY(Cust_ID) REFERENCES CID(Cust_ID),
+CONSTRAINT custo_fk FOREIGN KEY(Cust_Email) REFERENCES CEmail(Cust_Email)
+);
+
+--Insert values into table Customer
+INSERT INTO Customer VALUES ('Z0001', 'user1@example.com');
+INSERT INTO Customer VALUES ('Z0002', 'john.doe@email.com');
+INSERT INTO Customer(Cust_ID, Cust_Email) VALUES ('Z0003', 'alice.smith@email.com');
+INSERT INTO Customer(Cust_ID, Cust_Email) VALUES ('Z0004', 'jdoe2022@email.com');
+INSERT INTO Customer(Cust_ID, Cust_Email) VALUES ('Z0005', 'admin.user@email.com');
+
+--Table to store Customer Phone Number & ID
+Create table Cust_Contact(
+	Cust_Contact_Num varchar(50),
+	Cust_ID varchar(5),
+	
+	CONSTRAINT cont_pk PRIMARY KEY (Cust_Contact_Num),
+	CONSTRAINT sl_fk FOREIGN KEY (Cust_ID) REFERENCES CID (Cust_ID)
+);
+
+--Insert values into table Cust_Contact
+INSERT INTO Cust_Contact(Cust_Contact_Num, Cust_ID)
+VALUES ('015 8765 432', 'Z0001');
+
+
+INSERT INTO Cust_Contact(Cust_Contact_Num, Cust_ID)
+VALUES ('018 2345 678', 'Z0002');
+
+
+INSERT INTO Cust_Contact(Cust_Contact_Num, Cust_ID)
+VALUES ('016 8765 432', 'Z0003');
+
+
+INSERT INTO Cust_Contact(Cust_Contact_Num, Cust_ID)
+VALUES ('010 5432 109', 'Z0004');
+
+
+INSERT INTO Cust_Contact(Cust_Contact_Num, Cust_ID)
+VALUES ('019 8765 432', 'Z0005');
+
+--Display Customer details such as Customer Name , Email , Phone Number , Education , Company that Hire Customers
+SELECT ca.Cust_Name AS "Customer Name" , cb.Cust_Email AS "Customer Email", cc.Cust_Contact_Num AS "Phone Number", ca.Education AS "Education", ca.Comp_ID, compn.Comp_Name
+
+FROM CID ca
+JOIN Customer cb ON (ca.Cust_ID = cb.Cust_ID)
+JOIN Cust_Contact cc ON (cc.Cust_ID = ca.Cust_ID)
+JOIN COID compn ON (ca.Comp_ID = compn.Comp_ID);
+
+SELECT Cust_username AS "Username" , Cust_password AS "Password" FROM CUser;
+
+-- Admin
+
+----Table to store Admin Username & Password
+create table AdminUser(
+    Staff_Username varchar (50),
+    Staff_Password varchar (50),
+    
+    CONSTRAINT adminuser_pk PRIMARY KEY (Staff_UserName)
+);
+
+--Insert values into table AdminUser
+INSERT INTO AdminUser (Staff_Username,Staff_Password)
+Values ('johndoe123', 'pass123');
+
+INSERT INTO AdminUser (Staff_Username,Staff_Password)
+Values ('janesmith456', 'securepass');
+
+INSERT INTO AdminUser (Staff_Username,Staff_Password)
+Values ( 'mikejones789', 'p@ssw0rd');
+
+INSERT INTO AdminUser (Staff_Username,Staff_Password)
+Values ('sarahwhite321', 's3cur3password');
+
+INSERT INTO AdminUser (Staff_Username,Staff_Password)
+Values ('robertgreen555', 'greenapple');
+
+--Table to store Admin username & password
+create table AdminID(
+    Staff_ID varchar (5),
+    Staff_Name varchar (50),
+    Staff_Address varchar (50),
+    Position varchar (50),
+    CONSTRAINT adminid_pk PRIMARY KEY (Staff_ID)
+);
+
+--Insert values into table AdminID
+INSERT INTO AdminID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('X0001', 'John Doe', '123 Main St', 'Manager');
+
+INSERT INTO AdminID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('X0002', 'Jane Smith','456 Oak Ave', 'Assistant');
+
+INSERT INTO AdminID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('X0003', 'Mike Jones', '789 Elm St', 'Clerk');
+
+INSERT INTO AdminID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('X0004', 'Sarah White', '321 Pine Rd', 'Supervisor');
+
+INSERT INTO AdminID (Staff_ID,Staff_Name,Staff_Address,Position)
+Values ('X0005', 'Robert Green', '555 Cedar Ln', 'Analyst');
+
+--Table to store Admin Email & Username
+create table AdminEmail(
+    Staff_Email varchar (50),
+    Staff_Username varchar (50),
+    
+    CONSTRAINT adminemail_pk PRIMARY KEY (Staff_Email),
+    CONSTRAINT adminemail_fk FOREIGN KEY (Staff_Username) REFERENCES AdminUser (Staff_Username)
+
+);
+
+--Insert values into table AdminEmail
+INSERT INTO AdminEmail (Staff_Email,Staff_Username)
+Values ('john.doe@example.com', 'johndoe123');
+
+INSERT INTO AdminEmail (Staff_Email,Staff_Username)
+Values ( 'jane.smith@example.com', 'janesmith456');
+
+INSERT INTO AdminEmail (Staff_Email,Staff_Username)
+Values ('mike.jones@example.com', 'mikejones789');
+
+INSERT INTO AdminEmail (Staff_Email,Staff_Username)
+Values ( 'sarah.white@example.com', 'sarahwhite321');
+
+INSERT INTO AdminEmail (Staff_Email,Staff_Username)
+Values ('robert.green@example.com', 'robertgreen555');
+
+--Table to store Admin ID & Email
+create table StaffAdmin(
+    Staff_ID varchar (5),
+    Staff_Email varchar (50),
+    
+    CONSTRAINT admin_pk PRIMARY KEY (Staff_ID , Staff_Email),
+    CONSTRAINT admin1_fk FOREIGN KEY (Staff_ID) REFERENCES AdminID (Staff_ID),
+    CONSTRAINT admin2_fk FOREIGN KEY (Staff_Email) REFERENCES AdminEmail (Staff_Email)
+
+);
+
+--Insert values into table StaffAdmin
+INSERT INTO StaffAdmin (Staff_ID,Staff_Email)
+Values ( 'X0001', 'john.doe@example.com');
+
+INSERT INTO StaffAdmin (Staff_ID,Staff_Email)
+Values ( 'X0002', 'jane.smith@example.com'); 
+
+INSERT INTO StaffAdmin (Staff_ID,Staff_Email)
+Values ('X0003', 'mike.jones@example.com'); 
+
+INSERT INTO StaffAdmin (Staff_ID,Staff_Email)
+Values ( 'X0004', 'sarah.white@example.com'); 
+
+INSERT INTO StaffAdmin (Staff_ID,Staff_Email)
+Values ( 'X0005', 'robert.green@example.com'); 
+
+--Display Admin details
+SELECT a.Staff_ID AS "Admin ID" , ad.Staff_Name AS "Admin Name" , ad.Position AS "Admin Position" , a.Staff_email AS "Email"
+FROM StaffAdmin a
+JOIN AdminID ad ON (a.Staff_ID = ad.Staff_ID);
+
+SELECT Staff_Username AS "Username" , Staff_Password AS "Password" FROM AdminUser;
+
+-- CV
+
+--Table to store CV ID , Customer ID , Proofreader ID , CV Description
+CREATE TABLE CV (
+    CV_ID VARCHAR(20),
+    Cust_ID VARCHAR(20),
+    PR_ID VARCHAR(5),
+    CV_Desc VARCHAR2(150),
+    CONSTRAINT cv_pk PRIMARY KEY (CV_ID),
+    CONSTRAINT cv_fk FOREIGN KEY (Cust_ID) REFERENCES CID(Cust_ID),
+    CONSTRAINT cv2_fk FOREIGN KEY (PR_ID) REFERENCES ProofID(Staff_ID)
+);
+
+--Add Admin ID attribute to the CV table
+ALTER TABLE CV
+ADD admID VARCHAR2(5);
+
+ALTER TABLE CV
+ADD CONSTRAINT cvadm_fk FOREIGN KEY (admID) REFERENCES AdminID(Staff_ID);
+
+UPDATE CV
+SET admID = 'X0001'
+WHERE CV_ID = 'K1';
+
+UPDATE CV
+SET admID = 'X0001'
+WHERE CV_ID = 'K2';
+
+UPDATE CV
+SET admID = 'X0002'
+WHERE CV_ID = 'K3';
+
+UPDATE CV
+SET admID = 'X0003'
+WHERE CV_ID = 'K4';
+
+UPDATE CV
+SET admID = 'X0004'
+WHERE CV_ID = 'K5';
+
+--Table to store CV ID & CV_Skills
+CREATE TABLE CV_SK
+(
+CV_ID VARCHAR2(5),
+CV_Skills VARCHAR2(150),
+CONSTRAINT sk_pk PRIMARY KEY (CV_Skills,CV_ID),
+CONSTRAINT sk_fk FOREIGN KEY (CV_ID) REFERENCES CV(CV_ID)
+);
+
+--Insert values into table CV
+INSERT INTO CV VALUES ('K1', 'Z0001', 'P0021', 'Experienced manager in the finance sector');
+INSERT INTO CV VALUES ('K2', 'Z0002', 'P0022', 'Detail-oriented assistant with strong organizational skills');
+INSERT INTO CV VALUES ('K3', 'Z0003', 'P0023', 'Clerical professional with excellent communication skills');
+INSERT INTO CV VALUES ('K4', 'Z0004', 'P0024', 'Supervisor with a track record of team leadership');
+INSERT INTO CV VALUES ('K5', 'Z0005', 'P0025', 'Analytical mindset for data-driven decision-making');
+
+--Insert values into table CV_SK
+INSERT INTO CV_SK VALUES ('K1','Excel Expert');
+INSERT INTO CV_SK VALUES ('K1','Python Data Analysis');
+INSERT INTO CV_SK VALUES ('K2','AI Search Engine Expert');
+INSERT INTO CV_SK VALUES ('K3','C++ Expert');
+INSERT INTO CV_SK VALUES ('K3','Video Capturing');
+
+--DISPLAY CV , Customer who owns the CV & the proofreader 
+SELECT a.CV_ID AS "CV ID" , b.Cust_Name AS "CV Owner" , c.Staff_Name AS "Proofread By"
+FROM CV a
+JOIN CID  b ON (a.Cust_ID = b.Cust_ID)
+JOIN ProofID c ON (a.PR_ID  = c.Staff_ID);
+
+--Display CV details & Customer details
+SELECT a.CV_ID AS "CV ID" , b.Cust_Name AS "Name" , c.CV_Skills AS "Skill"
+FROM CV a
+JOIN CID  b ON (a.Cust_ID = b.Cust_ID)
+JOIN CV_SK c ON (a.CV_ID  = c.CV_ID);
+
+--Display details of assigning the cv
+SELECT a.CV_ID , b.Staff_Name
+FROM CV a
+JOIN AdminID b ON (a.admID = b.Staff_ID);
+
+-- Question & Answer
+
+CREATE
+--Table to store Question ID & Description
+Question(
+    question_id VARCHAR2(5) CONSTRAINT quest_q_id_pk PRIMARY KEY,
+    question_description VARCHAR2(100)
+);
+
+--Insert values into table Question
+Insert INTO Question
+VALUES ('Q0001','What are the payment methods available');
+Insert INTO Question VALUES 
+('Q0002','How can I customize my CV');
+Insert INTO Question VALUES
+('Q0003','Can I import my LinkedIn profile');
+Insert INTO Question VALUES
+('Q0004','How do I export my CV');
+Insert INTO Question VALUES
+('Q0005','Can I track how many people viewed my CV');
+
+--Table to store Answer ID , Description
+CREATE TABLE Answer(
+    answer_id VARCHAR2(5) CONSTRAINT ans_a_id_pk PRIMARY KEY,
+    answer_description VARCHAR2(100)
+);
+
+--Insert values into table Answer
+INSERT INTO Answer VALUES ('A0001' , 'There are two payment methods available');
+INSERT INTO Answer VALUES ('A0002', 'We offer a variety of CV templates, including professional, modern, and creative styles');
+INSERT INTO Answer VALUES ('A0003', 'You can customize your CV');
+INSERT INTO Answer VALUES ('A0004', 'You can import your LinkedIn profile to quickly create a CV');
+INSERT INTO Answer VALUES ('A0005', 'You can export your CV in PDF format');
+
+--Table to store Question ID & Answer ID
+CREATE TABLE QA(
+    quest_id VARCHAR2(5),
+    ans_id VARCHAR2(5),
+    CONSTRAINT qa_pk PRIMARY KEY (quest_id , ans_id),
+    CONSTRAINT qa_qid_fk FOREIGN KEY(quest_id) REFERENCES Question(question_id),
+    CONSTRAINT qa_aid_fk FOREIGN KEY(ans_id) REFERENCES Answer(answer_id)
+);
+
+--Insert values into table QA
+INSERT INTO QA VALUES ('Q0001','A0001');
+INSERT INTO QA VALUES ('Q0002','A0002');
+INSERT INTO QA VALUES ('Q0003','A0003');
+INSERT INTO QA VALUES ('Q0004','A0004');
+INSERT INTO QA VALUES ('Q0005','A0005');
+
+--Table to store CustQA which  have Question ID , Customer ID
+CREATE TABLE CustQA
+(
+    que_id VARCHAR2(5),
+    cus_id VARCHAR2(5),
+    ans_id VARCHAR2(5),
+    CONSTRAINT cqa_pk PRIMARY KEY(que_id),
+    CONSTRAINT q_fk FOREIGN KEY(que_id) REFERENCES Question(question_id),
+    CONSTRAINT cust_fk FOREIGN KEY (cus_id) REFERENCES CID (Cust_ID),
+    CONSTRAINT cuans_fk FOREIGN KEY (ans_id) REFERENCES Answer(answer_id)
+);
+
+--Insert values into table CustQA
+INSERT INTO CustQA VALUES ('Q0001','Z0001','A0001');
+INSERT INTO CustQA VALUES ('Q0002','Z0001','A0002');
+INSERT INTO CustQA VALUES ('Q0003','Z0002','A0003');
+INSERT INTO CustQA VALUES ('Q0004','Z0003','A0004');
+INSERT INTO CustQA VALUES ('Q0005','Z0003','A0005');
+
+--Table to store AdminQA which have Question ID , Answer ID
+CREATE TABLE AdminQA
+(
+    que_id VARCHAR2(5),
+    ans_id VARCHAR2(5),
+    admin_id VARCHAR2(5),
+    CONSTRAINT ad_qa_pk PRIMARY KEY (que_id),
+    CONSTRAINT a_fk FOREIGN KEY (que_id) REFERENCES Question(question_id),
+    CONSTRAINT aa_id_fk FOREIGN KEY (admin_id) REFERENCES AdminID(Staff_ID),
+    CONSTRAINT aN_id_fk FOREIGN KEY (ans_id) REFERENCES Answer(answer_id)
+);
+
+--Insert values into table AdminQA
+INSERT INTO AdminQA VALUES ('Q0001','A0001','X0003');
+INSERT INTO AdminQA VALUES ('Q0002','A0002','X0005');
+INSERT INTO AdminQA VALUES ('Q0003','A0003','X0002');
+INSERT INTO AdminQA VALUES ('Q0004','A0004','X0004');
+INSERT INTO AdminQA VALUES ('Q0005','A0005','X0003');
+
+--Display the question answered by the Admin
+SELECT ad.admin_id AS "Admin ID" , adm.Staff_Name AS "Admin Name"  , q.question_description AS "Question" , a.answer_description AS "Answer"
+FROM AdminQA ad
+JOIN AdminID adm ON (ad.admin_id = adm.Staff_ID)
+JOIN Question q ON (q.question_id = ad.que_id)
+JOIN Answer a ON (a.answer_id = ad.ans_id)
+order by admin_id;
+
+--Display the questions asked by the customers
+SELECT cu.cus_id AS "Customer ID" , cust.Cust_Name AS "Custoemr Name"  , q.question_description AS "Question" , a.answer_description AS "Answer"
+FROM CustQA cu
+JOIN CID cust ON (cu.cus_id = cust.cust_id)
+JOIN Question q ON (q.question_id = cu.que_id)
+JOIN Answer a ON (a.answer_id = cu.ans_id)
+order by cus_id;
+
+-- Package
+
+--Table to store table package ID , Name , Price , Package description
+CREATE TABLE Package
+(
+    Pack_ID VARCHAR2(2) PRIMARY KEY,
+    Pack_Name VARCHAR2(50),
+    Pack_Price NUMBER(4),
+    Pack_Desc VARCHAR2(200)
+);
+
+--Insert values into table Package
+INSERT INTO Package VALUES ('N1','CV Template',99,'2 CV Template');
+INSERT INTO Package VALUES ('N2','Basic Writing',159,'5 Days Duration');
+INSERT INTO Package VALUES ('N3','Pro Writting',199,'4 Days Duration');
+
+--Table to store Cust_Pack which has Customer ID , Package ID
+CREATE TABLE Cust_Pack
+(
+    Cust_ID VARCHAR2(5),
+    Pack_ID VARCHAR2(2),
+    CONSTRAINT pc_pk PRIMARY KEY (Cust_ID,Pack_ID),
+    CONSTRAINT pcp_fk FOREIGN KEY (Cust_ID) REFERENCES CID(Cust_ID),
+    CONSTRAINT pcs_fk FOREIGN KEY (Pack_ID) REFERENCES Package(Pack_ID)
+);
+
+--Insert values into table Cust_Pack
+INSERT INTO Cust_Pack VALUES ('Z0001','N1');
+INSERT INTO Cust_Pack VALUES ('Z0002','N1');
+INSERT INTO Cust_Pack VALUES ('Z0002','N2');
+INSERT INTO Cust_Pack VALUES ('Z0003','N3');
+INSERT INTO Cust_Pack VALUES ('Z0004','N3');
+
+--Display customer & package info
+SELECT a.Pack_ID AS "Pack ID" , b.Pack_Name AS "Package Name" , c.Cust_Name AS "Customer Name"
+FROM Cust_Pack a
+JOIN Package b ON (a.Pack_ID = b.Pack_ID)
+Join CID c ON (a.Cust_ID = c.Cust_ID);
+
+--StaffContact
+
+----Table to store Admin Contact Number & Admin ID
+CREATE TABLE AdminContact
+(
+Staff_ID VARCHAR2(5),
+Contact VARCHAR2(15),
+CONSTRAINT ac_pk PRIMARY KEY (Contact),
+CONSTRAINT aid_fk FOREIGN KEY (Staff_ID) REFERENCES AdminID (Staff_ID)
+);
+
+--Insert values into table AdminContact
+INSERT INTO AdminContact VALUES ('X0001','017 0000231');
+INSERT INTO AdminContact VALUES ('X0002','012 2341231');
+INSERT INTO AdminContact VALUES ('X0003','015 0912312');
+INSERT INTO AdminContact VALUES ('X0004','016 1233212');
+INSERT INTO AdminContact VALUES ('X0005','018 0988909');
+
+--Table to store Consultant Contact Number & Consultant ID
+CREATE TABLE ConsultContact
+(
+Staff_ID VARCHAR2(5),
+Contact VARCHAR2(15),
+CONSTRAINT cc_pk PRIMARY KEY (Contact),
+CONSTRAINT cid_fk FOREIGN KEY (Staff_ID) REFERENCES ConsultantID(Consult_ID)
+);
+
+--Insert values into table ConsultantContact
+INSERT INTO ConsultContact VALUES ('K1','011 0000000');
+INSERT INTO ConsultContact VALUES ('K2','017 1111111');
+INSERT INTO ConsultContact VALUES ('K3','018 2222222');
+INSERT INTO ConsultContact VALUES ('K4','018 3333333');
+INSERT INTO ConsultContact VALUES ('K5','019 4444444');
+
+SELECT * FROM ConsultContact;
+
+--Table to store Proofreader Contact Number & Proofreader ID
+CREATE TABLE ProofContact
+(
+Staff_ID VARCHAR2(5),
+Contact VARCHAR2(15),
+CONSTRAINT prof_pk PRIMARY KEY (Contact),
+CONSTRAINT prof_ct_fk FOREIGN KEY (Staff_ID) REFERENCES ProofID(Staff_ID)
+);
+
+--Insert values into table ProofContact
+INSERT INTO ProofContact VALUES ('P0021','012 2342143');
+INSERT INTO ProofContact VALUES ('P0022','013 3456654');
+INSERT INTO ProofContact VALUES ('P0023','014 2222222');
+INSERT INTO ProofContact VALUES ('P0024','018 3333333');
+INSERT INTO ProofContact VALUES ('P0025','019 0987789');
+
+SELECT b.Staff_Name AS "Proofreader Name" , a.Contact AS "Phone Number"
+FROM ProofID b
+Join ProofContact a ON (a.Staff_ID = b.Staff_ID);

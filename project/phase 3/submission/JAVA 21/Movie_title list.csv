@@ -1,0 +1,21 @@
+MOVIE_ID,MOVIE_NAME,GENRE_ID,DIRECTOR_ID,ACTOR_ID
+M001,The Conjuring,G001,D001,A001
+M002,Jurassic Park,G002,D002,A002
+M003,Blade Runner,G003,D003,A003
+M004,An Inconvenient Truth,G004,D004,A004
+M005,A Quiet Place,G001,D005,A005
+M006,Indiana Jones and the Raiders of the Lost Ark,G002,D006,A006
+M007,Eternal Sunshine of the Spotless Mind,G003,D007,A007
+M008,March of the Penguins,G004,D008,A008
+M009,The Exorcist,G001,D009,A009
+M010,Avatar,G002,D010,A010
+M011,The Matrix,G003,D011,A011
+M012,Oppenheimer,G004,D012,A012
+M013,Get Out,G001,D013,A013
+M014,The Revenant,G002,D014,A014
+M015,Interstellar,G003,D012,A015
+M016,Wont You Be My Neighbor?,G004,D015,A016
+M017,The Babadook,G001,D016,A017
+M018,The Lord of the Rings: The Fellowship of the Ring,G002,D017,A018
+M019,The Fifth Element,G003,D018,A019
+M020,Super Size Me,G004,D019,A020
